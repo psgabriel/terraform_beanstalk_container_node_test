@@ -1,5 +1,4 @@
 .DS_Store
-docker/nodejs.org
 terraform/.terraform
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
