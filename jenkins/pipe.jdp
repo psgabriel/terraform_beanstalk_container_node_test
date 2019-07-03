@@ -17,6 +17,7 @@ pipeline {
             steps {
                 sh '''
                 cd node_app_docker
+                git clone https://github.com/nodejs/nodejs.org.git
                 ls
                 '''
                 // deleteDir()
