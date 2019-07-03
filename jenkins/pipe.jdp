@@ -1,0 +1,26 @@
+pipeline {
+    agent {
+        node {
+            label 'master'
+        }
+    }
+ 
+    options {
+        timeout(time: 5, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    stages {
+        
+        stage('Prepare Workspace') {
+            steps {
+                sh '''
+                cd node_app_docker
+                ls
+                '''
+                // deleteDir()
+            }
+        }
+    }
+}
