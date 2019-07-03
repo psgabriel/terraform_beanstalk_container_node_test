@@ -13,7 +13,7 @@ pipeline {
 
     stages {
         
-        stage('Prepare Workspace') {
+        stage('Get App') {
             steps {
                 sh '''
                 cd node_app_docker
