@@ -108,9 +108,7 @@ pipeline {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
                     sh "/usr/local/bin/terraform output cname"
                 }
-                environment {
-                    CNAME = $("/usr/local/bin/terraform output cname")
-                }
+                CNAME = $("/usr/local/bin/terraform output cname")
             }
         }
 
@@ -126,7 +124,7 @@ pipeline {
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
                     "color" : "good",
-                    "text": "url do site ....",
+                    "text": "${var.CNAME}",
                     "mrkdwn_in": ["text"]
                 }
             ]}' https://hooks.slack.com/services/${slackHook}
