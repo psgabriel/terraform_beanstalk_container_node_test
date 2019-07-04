@@ -6,10 +6,10 @@ pipeline {
     }
 
     parameters {
-        booleanParam(name: 'AWS_BUILD', defaultValue: true, 
+        booleanParam(name: 'reDockerImage', defaultValue: true
+            description: 'Force pipeline to always build a new Docker image')
+        booleanParam(name: 'awsBuild', defaultValue: true, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
-        string(name: 'BLUE_GREEN', defaultValue: 'blue', 
-            description: 'Seconds to sleep before TF destroy of all infra (if selected)')
         choice(
             name: 'deploy_color',
             choices: 'blue\ngreen',
@@ -34,6 +34,9 @@ pipeline {
             }
         }
         stage('Docker Image Build') {
+            when {
+                expression { params.reDockerImage == true }
+            }
             steps{
                 sh '''
                 docker build -t node_stg:latest .
@@ -43,6 +46,9 @@ pipeline {
         }
 
         stage ('Docker Hub Publish') {
+            when {
+                expression { params.reDockerImage == true }
+            }
             steps {
                 sh '''
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
@@ -52,7 +58,7 @@ pipeline {
         }
         stage ('Terraform Init') {
             when {
-                expression { params.AWS_BUILD == true }
+                expression { params.awsBuild == true }
             }
             steps{
                 dir('terraform') {
@@ -62,21 +68,21 @@ pipeline {
         }
         stage ('Terraform Plan') {
             when {
-                expression { params.AWS_BUILD == true }
+                expression { params.awsBuild == true }
             }
             steps{
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform plan -out node_stg_${BLUE_GREEN}.plan"
+                    sh "/usr/local/bin/terraform plan -out node_stg_${deploy_color}.plan"
                 }
             }
         }
         stage ('AWS Resource build') {
             when {
-                expression { params.AWS_BUILD == true }
+                expression { params.awsBuild == true }
             }
             steps{
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform apply node_stg_${BLUE_GREEN}"
+                    sh "/usr/local/bin/terraform apply node_stg_${deploy_color}"
                 }
             }
         }
