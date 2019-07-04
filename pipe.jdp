@@ -31,7 +31,6 @@ pipeline {
         //         '''
         //     }
         // }
-        def dockerImage
         stage('Build image') {
             dockerImage = docker.build("psgabriel/node:latest")
         }
