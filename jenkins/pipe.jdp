@@ -37,13 +37,32 @@ pipeline {
                 '''
             }
         }
-        stage('Docker Hub Publish') {
+        // stage('Docker Hub Publish') {
+        //     steps {
+        //         sh '''
+        //         docker tag node_stg:latest psgabriel/node:latest
+        //         docker push psgabriel/node:latest
+        //         '''
+        //     }
+        // }
+        stage ('Docker Build') {
             steps {
-                sh '''
-                docker tag node_stg:latest psgabriel/node:latest
-                docker push psgabriel/node:latest
-                '''
+                // prepare docker build context
+                sh "cp target/project.war ./tmp-docker-build-context"
+
+                // Build and push image with Jenkins' docker-plugin
+                script {
+                    withDockerServer([uri: "tcp://127.0.0.1:2375"]) {
+                        withDockerRegistry([credentialsId: 'dockerhub', url: "https://hub.docker.com"]) {
+                            sh '''
+                            docker tag node_stg:latest psgabriel/node:latest
+                            docker push psgabriel/node:latest
+                            '''
+                        }
+                    }
+                }
             }
         }
+
     }
 }
