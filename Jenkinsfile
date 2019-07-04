@@ -51,10 +51,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh '''`
-                    chmod -R 777 *
-                    /usr/local/bin/terraform init
-                    '''
+                    sh "/usr/local/bin/terraform init"
                 }
             }
         }
