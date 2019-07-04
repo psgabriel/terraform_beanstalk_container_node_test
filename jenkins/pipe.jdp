@@ -11,6 +11,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
+    environment {
+        registry = "psgabriel/node"
+        registryCredential = 'dockerhub'
+}
+
+
     stages {
         stage('Get App') {
             steps {
@@ -23,11 +29,19 @@ pipeline {
                 // deleteDir()
             }
         }
-        stage ('Docker Image Build') {
+        stage('Building image') {
             steps {
-                dockerfile {
-                    filename 'Dockerfile'
-                    label 'latest'
+                script {
+                    docker.build registry + 'latest'
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
