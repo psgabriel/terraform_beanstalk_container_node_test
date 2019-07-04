@@ -50,7 +50,7 @@ pipeline {
             when {
                 expression { params.reDockerImage == true }
             }
-            steps{
+            steps {
                 sh '''
                 docker build -t node_stg:latest .
                 docker images
@@ -73,7 +73,7 @@ pipeline {
             when {
                 expression { params.awsBuild == true }
             }
-            steps{
+            steps {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform init"
                 }
@@ -83,7 +83,7 @@ pipeline {
             when {
                 expression { params.awsBuild == true }
             }
-            steps{
+            steps {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform plan -out node_stg_${deploy_color}.plan"
                 }
@@ -93,7 +93,7 @@ pipeline {
             when {
                 expression { params.awsBuild == true }
             }
-            steps{
+            steps {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                 }
@@ -105,6 +105,11 @@ pipeline {
             }
             environment {
                CNAME = sh(script: '/usr/local/bin/terraform output cname', , returnStdout: true).trim()
+           }
+           steps {
+               sh "echo $CNAME"
+           }
+
            }
             // steps{
             //     dir('terraform') {
