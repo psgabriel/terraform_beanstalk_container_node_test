@@ -3,10 +3,10 @@ data "template_file" "docker" {
   template = "${file("${path.module}/templates/Dockerrun.aws.json.tpl")}"
 
   vars = {
-    docker_tag       = "${var.docker_tag}"
-    docker_image     = "${var.docker_image}"
-    docker_ports     = "[ ${join(",\n",formatlist("{ \"ContainerPort\": \"%s\" }", var.docker_ports))} ]"
-    application_name = "${var.application_name}"
+    docker_tag       = "latest"
+    docker_image     = "docker.io/psgabriel/node"
+    docker_ports     = "8080"
+    application_name = "eb_node"
   }
 }
 data "archive_file" "zip" {
