@@ -68,6 +68,5 @@ resource "aws_elastic_beanstalk_environment" "${var.application_name}" {
   }
 }
 output "cname" {
-  my_env = "${var.application_name}"
-  value = "${aws_elastic_beanstalk_environment.my_env.cname}"
+  value = "${aws_elastic_beanstalk_environment.default.cname}"
 }

@@ -40,21 +40,21 @@ data "aws_iam_policy" "AWSElasticBeanstalkWebTier" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "elb-attach" {
+resource "aws_iam_role_policy_attachment" "elb-blue-attach" {
   role       = "${aws_iam_role.elb_blue.name}"
   policy_arn = "${data.aws_iam_policy.AWSElasticBeanstalkWebTier.arn}"
 }
-resource "aws_iam_role_policy_attachment" "elb-attach" {
+resource "aws_iam_role_policy_attachment" "elb-green-attach" {
   role       = "${aws_iam_role.elb_green.name}"
   policy_arn = "${data.aws_iam_policy.AWSElasticBeanstalkWebTier.arn}"
 }
 
 
-resource "aws_iam_instance_profile" "elb-profile" {
+resource "aws_iam_instance_profile" "elb-blue-profile" {
   name = "elb_blue_profile"
   role = "${aws_iam_role.elb_blue.name}"
 }
-resource "aws_iam_instance_profile" "elb-profile" {
+resource "aws_iam_instance_profile" "elb-green-profile" {
   name = "elb_green_profile"
   role = "${aws_iam_role.elb_green.name}"
 }
