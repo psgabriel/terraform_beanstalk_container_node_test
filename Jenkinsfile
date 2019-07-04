@@ -10,13 +10,13 @@ pipeline {
         slackHook = credentials('SLACK_ENDPOINT')
     }
     parameters {
-        booleanParam(name: 'refreshApp', defaultValue: true,
+        booleanParam(name: 'refreshApp', defaultValue: false,
             description: 'Take a new app from repository nodeAPPrepo')
-        booleanParam(name: 'reDockerImage', defaultValue: true,
+        booleanParam(name: 'reDockerImage', defaultValue: false,
             description: 'Force pipeline to always build a new Docker image')
-        booleanParam(name: 'awsBuild', defaultValue: true, 
+        booleanParam(name: 'awsBuild', defaultValue: false, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
-        booleanParam(name: 'awsDestroy', defaultValue: true, 
+        booleanParam(name: 'awsDestroy', defaultValue: false, 
             description: 'All Beanstalk resources will be destroyed')
         booleanParam(name: 'slackNotification', defaultValue: true, 
             description: 'Send a message to Slack General chanell ')
@@ -107,10 +107,10 @@ pipeline {
                CNAME = sh(script: '/usr/local/bin/terraform output cname', , returnStdout: true).trim()
            }
            steps {
-               sh "echo $CNAME"
+               sh 'echo $CNAME'
            }
+        }
 
-           }
             // steps{
             //     dir('terraform') {
             //         script {
