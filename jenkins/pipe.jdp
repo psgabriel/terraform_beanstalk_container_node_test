@@ -31,19 +31,20 @@ pipeline {
         }
         stage('Building image') {
             steps {
+                cd node_app_docker
                 script {
-                    docker.build registry + 'latest'
+                    docker.build("node:latest", "node_app_docker/Dockerfile")
                 }
             }
         }
-        stage('Deploy Image') {
-            steps{
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
+        // stage('Deploy Image') {
+        //     steps{
+        //         script {
+        //             docker.withRegistry( '', registryCredential ) {
+        //                 dockerImage.push()
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
