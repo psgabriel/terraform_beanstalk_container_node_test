@@ -108,4 +108,35 @@ pipeline {
         }
 
     }
+    post {
+        success {
+            echo "success"
+            sh'''
+            curl --connect-timeout 10 -X POST --data-urlencode 'payload=
+                        {
+                        "attachments": [{
+                            "title": "JOB '${JOB_NAME}' IS OK",
+                            "color" : "good",
+                            "text": "url do site ....",
+                            "mrkdwn_in": ["text"]
+                            }
+                        ]}' https://hooks.slack.com/services/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
+                       '''
+        }
+        failure {
+            echo "failed"
+            sh'''
+            curl --connect-timeout 10 -X POST --data-urlencode 'payload=
+                        {
+                        "attachments": [{
+                            "title": "JOB '${JOB_NAME}' IS FAIL",
+                            "color" : "danger",
+                            "text": "Something is wrong. Check Jenkins Log",
+                            "mrkdwn_in": ["text"]
+                            }
+                        ]}' https://hooks.slack.com/services/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
+                       '''
+        }
+    }
+
 }
