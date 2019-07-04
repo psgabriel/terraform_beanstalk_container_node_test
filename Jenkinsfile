@@ -110,15 +110,6 @@ pipeline {
                sh 'echo $CNAME'
            }
         }
-
-            // steps{
-            //     dir('terraform') {
-            //         script {
-            //         CNAME = sh(script: '/usr/local/bin/terraform output cname')
-            //         }
-            //     }
-            // }
-        }
         stage ('AWS Destroy') {
             when {
                 expression { params.awsDestroy == true }
