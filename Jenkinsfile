@@ -38,7 +38,7 @@ pipeline {
             steps {
                 sh '''
                 rm -rf nodejs.org
-                git clone ${NPM_REGISTRY}
+                git clone ${nodeAPPrepo}
                 '''
                 // deleteDir()
             }
