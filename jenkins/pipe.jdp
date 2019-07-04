@@ -6,7 +6,7 @@ pipeline {
     }
  
     options {
-        timeout(time: 5, unit: 'MINUTES')
+        timeout(time: 20, unit: 'MINUTES')
         disableConcurrentBuilds()
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
@@ -33,6 +33,7 @@ pipeline {
                 sh '''
                 cd node_app_docker
                 docker build -t node_stg:latest .
+                docker images
                 '''
             }
         }
