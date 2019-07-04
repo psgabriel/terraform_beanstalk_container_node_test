@@ -97,8 +97,17 @@ pipeline {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                 }
-                script {
+            }
+        }
+        stage ('test') {
+            when {
+                expression { params.slackNotification == true }
+            }
+            steps{
+                dir('terraform') {
+                    script {
                     CNAME = sh(script: '/usr/local/bin/terraform output cname')
+                    }
                 }
             }
         }
