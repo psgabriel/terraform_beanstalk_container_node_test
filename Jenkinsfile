@@ -102,7 +102,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform destroy -target node_stg_${deploy_color}.plan -auto-approve"
+                    sh "/usr/local/bin/terraform destroy -auto-approve"
                 }
             }
         }
