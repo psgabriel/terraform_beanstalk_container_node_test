@@ -124,7 +124,7 @@ pipeline {
         success {
             echo "success"
             sh'''
-            echo $JENKINS_HOME
+            echo $WORKSPACE
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
