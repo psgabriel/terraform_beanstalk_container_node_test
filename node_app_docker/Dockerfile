@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:alpine
 
 WORKDIR /app
 COPY nodejs.org/package.json .
