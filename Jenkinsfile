@@ -98,7 +98,7 @@ pipeline {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                 }
                 script {
-                    CNAME = sh(returnStdout: true, script: '/usr/local/bin/terraform output cname')
+                    CNAME = sh(script: '/usr/local/bin/terraform output cname')
                 }
             }
         }
