@@ -55,7 +55,7 @@ pipeline {
                 expression { params.AWS_BUILD == true }
             }
             steps{
-                dir('/tmp/terraform') {
+                dir('terraform') {
                     sh "/usr/local/bin/terraform init"
                 }
             }
@@ -65,8 +65,7 @@ pipeline {
                 expression { params.AWS_BUILD == true }
             }
             steps{
-                dir('/tmp/terraform') {
-                    sh "chmod -R 777 *"
+                dir('terraform') {
                     sh "/usr/local/bin/terraform plan -out node_stg_${BLUE_GREEN}.plan"
                 }
             }
@@ -76,8 +75,7 @@ pipeline {
                 expression { params.AWS_BUILD == true }
             }
             steps{
-                dir('/tmp/terraform') {
-                    sh "chmod -R 777 *"
+                dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${BLUE_GREEN} -auto-approve"
                 }
             }
