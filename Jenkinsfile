@@ -125,9 +125,6 @@ pipeline {
     }
     post {
         success {
-            when {
-                expression { params.slackNotification == true }
-            }
             echo "success"
             sh'''
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
@@ -141,9 +138,6 @@ pipeline {
             '''
         }
         failure {
-            when {
-                expression { params.slackNotification == true }
-            }
             echo "failed"
             sh'''
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
