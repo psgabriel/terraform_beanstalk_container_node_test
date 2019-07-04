@@ -1,3 +1,7 @@
+data "aws_iam_policy" "AWSElasticBeanstalkWebTier" {
+  arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
 resource "aws_iam_role" "elb_blue" {
   name = "elb_blue"
 
@@ -16,6 +20,12 @@ resource "aws_iam_role" "elb_blue" {
 }
 EOF
 }
+resource "aws_iam_role_policy_attachment" "elb-blue-attach" {
+  role       = "${aws_iam_role.elb_blue.name}"
+  policy_arn = "${data.aws_iam_policy.AWSElasticBeanstalkWebTier.arn}"
+}
+
+
 resource "aws_iam_role" "elb_green" {
   name = "elb_green"
 
@@ -34,20 +44,11 @@ resource "aws_iam_role" "elb_green" {
 }
 EOF
 }
-
-data "aws_iam_policy" "AWSElasticBeanstalkWebTier" {
-  arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
-}
-
-
-resource "aws_iam_role_policy_attachment" "elb-blue-attach" {
-  role       = "${aws_iam_role.elb_blue.name}"
-  policy_arn = "${data.aws_iam_policy.AWSElasticBeanstalkWebTier.arn}"
-}
 resource "aws_iam_role_policy_attachment" "elb-green-attach" {
   role       = "${aws_iam_role.elb_green.name}"
   policy_arn = "${data.aws_iam_policy.AWSElasticBeanstalkWebTier.arn}"
 }
+
 
 
 resource "aws_iam_instance_profile" "elb-blue-profile" {

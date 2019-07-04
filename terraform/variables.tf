@@ -16,3 +16,10 @@ variable "instance_type" {
 variable "aws_region_zone" {
     default     = "us-east-1b"
 }
+variable "bean_autoscaling_min" {
+  default     = "2"
+}
+variable "bean_rolling_update_type" {
+  default     = "Health"
+  description = "Health, Immutable, Rolling"
+}

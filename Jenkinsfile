@@ -76,7 +76,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform apply node_stg_${BLUE_GREEN} -auto-approve"
+                    sh "/usr/local/bin/terraform apply node_stg_${BLUE_GREEN}"
                 }
             }
         }

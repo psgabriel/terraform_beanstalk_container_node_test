@@ -66,6 +66,22 @@ resource "aws_elastic_beanstalk_environment" default {
     name      = "ConnectionDrainingEnabled"
     value     = "true"
   }
+  setting {
+    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
+    name      = "MinInstancesInService"
+    value     = "${var.bean_autoscaling_min}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:command"
+    name      = "DeploymentPolicy"
+    value     = "${var.bean_rolling_update_type == "Immutable" ? "Immutable" : "Rolling"}"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:application:default"
+    name      = "url"
+    value     = "${aws_elastic_beanstalk_environment.default.cname}"
+  }
 }
 output "cname" {
   value = "${aws_elastic_beanstalk_environment.default.cname}"
