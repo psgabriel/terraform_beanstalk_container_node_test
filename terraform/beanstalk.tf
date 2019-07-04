@@ -77,11 +77,11 @@ resource "aws_elastic_beanstalk_environment" "default" {
     name      = "DeploymentPolicy"
     value     = "${var.bean_rolling_update_type == "Immutable" ? "Immutable" : "Rolling"}"
   }
-  setting {
-    namespace = "aws:elasticbeanstalk:application:default"
-    name      = "url"
-    value     = "${aws_elastic_beanstalk_environment.default.cname}"
-  }
+  # setting {
+  #   namespace = "aws:elasticbeanstalk:application:default"
+  #   name      = "url"
+  #   value     = "${aws_elastic_beanstalk_environment.default.cname}"
+  # }
 }
 output "cname" {
   value = "${aws_elastic_beanstalk_environment.default.cname}"
