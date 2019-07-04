@@ -12,18 +12,15 @@ pipeline {
     }
 
     stages {
-        stage('Clear Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
         stage('Get App') {
             steps {
                 sh '''
                 cd node_app_docker
+                rm -rf nodejs.org
                 git clone https://github.com/nodejs/nodejs.org.git
                 ls
                 '''
+                // deleteDir()
             }
         }
         stage ('Docker Image Build') {
