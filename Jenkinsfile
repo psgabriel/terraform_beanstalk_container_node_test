@@ -8,7 +8,7 @@ pipeline {
     parameters {
         booleanParam(name: 'AWS_BUILD', defaultValue: true, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
-        string(name: 'TERRAFORM_CLEANUP_SLEEP', defaultValue: '300', 
+        string(name: 'BLUE_GREEN', defaultValue: 'blue', 
             description: 'Seconds to sleep before TF destroy of all infra (if selected)')
         }
 
@@ -61,7 +61,8 @@ pipeline {
             }
             steps{
                 dir('/tmp/terraform') {
-                    sh "/usr/local/bin/terraform plan -out node_stg.plan"
+                    sh "chmod -R 777 *"
+                    sh "/usr/local/bin/terraform plan -out node_stg_${BLUE_GREEN}.plan"
                 }
             }
         }
@@ -71,7 +72,8 @@ pipeline {
             }
             steps{
                 dir('/tmp/terraform') {
-                    sh "/usr/local/bin/terraform apply -auto-approve"
+                    sh "chmod -R 777 *"
+                    sh "/usr/local/bin/terraform apply node_stg_${BLUE_GREEN} -auto-approve"
                 }
             }
         }
