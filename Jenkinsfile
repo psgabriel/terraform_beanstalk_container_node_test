@@ -97,6 +97,9 @@ pipeline {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                 }
+                script {
+                    CNAME = sh(returnStdout: true, script: '/usr/local/bin/terraform output cname')
+                }
             }
         }
         stage ('AWS Destroy') {
@@ -108,10 +111,8 @@ pipeline {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
                     sh "/usr/local/bin/terraform output cname"
                 }
-                CNAME = $("/usr/local/bin/terraform output cname")
             }
         }
-
     }
     post {
         success {
