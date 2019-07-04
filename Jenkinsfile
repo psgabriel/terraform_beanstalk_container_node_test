@@ -124,12 +124,11 @@ pipeline {
         success {
             echo "success"
             sh'''
-            myVAR=$(cat ${WORKSPACE}/terraform/cname)
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
                     "color" : "good",
-                    "text": "${myVar}",
+                    "text": "$(cat /var/lib/jenkins/workspace/pg/terraform/cname)",
                     "mrkdwn_in": ["text"]
                 }
             ]}' https://hooks.slack.com/services/${slackHook}
