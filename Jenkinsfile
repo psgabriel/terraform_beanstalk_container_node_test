@@ -105,7 +105,7 @@ pipeline {
                 expression { params.slackNotification == true }
             }
             steps {
-                sh "echo ${myVAR}"
+                sh "echo pg"
             }
            
         }
