@@ -5,7 +5,12 @@ pipeline {
         }
     }
 
+    environment {
+        nodeAPPrepo="https://github.com/nodejs/nodejs.org.git"
+    }
     parameters {
+        booleanParam(name: 'refreshApp', defaultValue: true,
+            description: 'Take a new app from repository nodeAPPrepo')
         booleanParam(name: 'reDockerImage', defaultValue: true,
             description: 'Force pipeline to always build a new Docker image')
         booleanParam(name: 'awsBuild', defaultValue: true, 
@@ -25,10 +30,13 @@ pipeline {
 
     stages {
         stage('Get App') {
+            when {
+                expression { params.refreshApp == true }
+            }
             steps {
                 sh '''
                 rm -rf nodejs.org
-                git clone https://github.com/nodejs/nodejs.org.git
+                git clone ${NPM_REGISTRY}
                 '''
                 // deleteDir()
             }
