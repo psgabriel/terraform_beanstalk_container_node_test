@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'AWS_BUILD', defaultValue: true, 
-            description: 'AWS resource up (like terraform apply)')
+            description: 'AWS resource up (if false, just docker image will be deployed on registry)')
         string(name: 'TERRAFORM_CLEANUP_SLEEP', defaultValue: '300', 
             description: 'Seconds to sleep before TF destroy of all infra (if selected)')
         }
@@ -50,7 +50,7 @@ pipeline {
                 expression { params.AWS_BUILD == true }
             }
             steps{
-                dir('terraform') {
+                dir('/tmp/terraform') {
                     sh "/usr/local/bin/terraform init"
                 }
             }
@@ -60,21 +60,21 @@ pipeline {
                 expression { params.AWS_BUILD == true }
             }
             steps{
-                dir('terraform') {
+                dir('/tmp/terraform') {
                     sh "/usr/local/bin/terraform plan -out node_stg.plan"
                 }
             }
         }
-        // stage ('AWS Resource build') {
-        //     when {
-        //         expression { params.AWS_BUILD == true }
-        //     }
-        //     steps{
-        //         dir('terraform') {
-        //             sh "terraform terraform apply -auto-approve"
-        //         }
-        //     }
-        // }
+        stage ('AWS Resource build') {
+            when {
+                expression { params.AWS_BUILD == true }
+            }
+            steps{
+                dir('/tmp/terraform') {
+                    sh "/usr/local/bin/terraform apply -auto-approve"
+                }
+            }
+        }
 
     }
 }

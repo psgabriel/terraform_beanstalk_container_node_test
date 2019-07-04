@@ -14,8 +14,8 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   }
 }
 # Benstalk Env
-resource "aws_elastic_beanstalk_environment" "staging" {
-  name                = "${var.application_environment}"
+resource "aws_elastic_beanstalk_environment" "${var.application_name}" {
+  name                = "${var.application_env}"
   application         = "${aws_elastic_beanstalk_application.default.name}"
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.12.14 running Docker 18.06.1-ce"
   version_label       = "${aws_elastic_beanstalk_application_version.default.name}"
@@ -28,48 +28,39 @@ resource "aws_elastic_beanstalk_environment" "staging" {
     value     = "${aws_vpc.default.id}"
   }
 
-  # ELB subnet
+  # ELB and Instances subnet
   setting {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
     value     = "${aws_subnet.default.id}"
   }
   setting {
+    namespace = "aws:ec2:vpc"
+    name      = "Subnets"
+    value     = "${aws_subnet.default.id}"
+  }
+  # Autoscaling
+  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
     value     = "${var.instance_type}"
   }
-
   setting {
     namespace = "aws:autoscaling:asg"
     name      = "MaxSize"
     value     = "2"
   }
-  # Instances subnet
-  setting {
-    namespace = "aws:ec2:vpc"
-    name      = "Subnets"
-    value     = "${aws_subnet.default.id}"
-  }
-  #
+  # Beanstalk Load Balancer Confs
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
     value     = "LoadBalanced"
   }
-  # Example of setting environment variables
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "AWS_ENVIRONMENT"
-    value     = "test"
-  }
-  # Multizone Load Balancers
   setting {
     namespace = "aws:elb:loadbalancer"
     name      = "CrossZone"
     value     = "true"
   }
-  # Connection draining
   setting {
     namespace = "aws:elb:policies"
     name      = "ConnectionDrainingEnabled"
@@ -77,5 +68,6 @@ resource "aws_elastic_beanstalk_environment" "staging" {
   }
 }
 output "cname" {
-  value = "${aws_elastic_beanstalk_environment.staging.cname}"
+  my_env = "${var.application_name}"
+  value = "${aws_elastic_beanstalk_environment.my_env.cname}"
 }

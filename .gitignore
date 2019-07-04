@@ -4,3 +4,4 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/.terraform.tfstate.lock.info
 terraform/dockerrun.zip
+terraform/provider.tf
