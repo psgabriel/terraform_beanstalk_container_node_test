@@ -43,17 +43,5 @@ pipeline {
             docker push psgabriel/node:latest
             '''
         }
-
-        // stage('Deploy in DockerHub') {
-        //     steps{
-        //         sh '''
-                docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        //         script {
-        //             docker.withRegistry( '', registryCredential ) {
-        //                 dockerImage.push()
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
