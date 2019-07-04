@@ -109,7 +109,7 @@ pipeline {
                     sh "/usr/local/bin/terraform output cname"
                 }
                 environment {
-                    CNAME = "/usr/local/bin/terraform output cname"
+                    CNAME = $("/usr/local/bin/terraform output cname")
                 }
             }
         }
