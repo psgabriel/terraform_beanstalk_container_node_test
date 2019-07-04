@@ -15,6 +15,8 @@ pipeline {
             description: 'Force pipeline to always build a new Docker image')
         booleanParam(name: 'awsBuild', defaultValue: true, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
+        booleanParam(name: 'awsDestroy', defaultValue: true, 
+            description: 'All Beanstalk resources will be destroyed ')    
         choice(
             name: 'deploy_color',
             choices: 'blue\ngreen',
@@ -91,6 +93,16 @@ pipeline {
             steps{
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
+                }
+            }
+        }
+        stage ('AWS Destroy') {
+            when {
+                expression { params.awsDestroy == true }
+            }
+            steps{
+                dir('terraform') {
+                    sh "/usr/local/bin/terraform destroy node_stg_${deploy_color}.plan"
                 }
             }
         }
