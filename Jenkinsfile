@@ -51,7 +51,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh "terraform init"
+                    sh "/usr/local/bin/terraform init"
                 }
             }
         }
