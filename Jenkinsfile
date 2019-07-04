@@ -10,7 +10,12 @@ pipeline {
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
         string(name: 'BLUE_GREEN', defaultValue: 'blue', 
             description: 'Seconds to sleep before TF destroy of all infra (if selected)')
-        }
+        choice(
+            name: 'deploy_color',
+            choices: 'blue\ngreen',
+            description: 'deploy alternative'
+        )
+    }
 
     options {
         timeout(time: 20, unit: 'MINUTES')
