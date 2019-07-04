@@ -15,7 +15,6 @@ pipeline {
         stage('Get App') {
             steps {
                 sh '''
-                cd node_app_docker
                 rm -rf nodejs.org
                 git clone https://github.com/nodejs/nodejs.org.git
                 '''
@@ -25,7 +24,6 @@ pipeline {
         stage('Docker Image Build') {
             steps{
                 sh '''
-                cd node_app_docker
                 docker build -t node_stg:latest .
                 docker images
                 '''
