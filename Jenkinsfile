@@ -131,7 +131,7 @@ pipeline {
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
                     "color" : "good",
-                    "text": "${var.CNAME}",
+                    "text": "${CNAME}",
                     "mrkdwn_in": ["text"]
                 }
             ]}' https://hooks.slack.com/services/${slackHook}
