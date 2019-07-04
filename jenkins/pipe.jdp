@@ -37,11 +37,13 @@ pipeline {
                 '''
             }
         }
-        stage('Docker Hub Publish) {
-            sh '''
-            docker tag node_stg:latest psgabriel/node:latest
-            docker push psgabriel/node:latest
-            '''
+        stage('Docker Hub Publish') {
+            steps {
+                sh '''
+                docker tag node_stg:latest psgabriel/node:latest
+                docker push psgabriel/node:latest
+                '''
+            }
         }
     }
 }
