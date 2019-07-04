@@ -98,9 +98,6 @@ pipeline {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                     sh "/usr/local/bin/terraform output cname > ./cname"
                 }
-                script {
-                    myVar = readFile('./cname').trim()
-                }
             }
         }
         stage ('test') {
@@ -127,6 +124,7 @@ pipeline {
         success {
             echo "success"
             sh'''
+            myVAR=$(cat ./cname)
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
