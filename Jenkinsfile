@@ -96,6 +96,10 @@ pipeline {
             steps {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
+                    sh "/usr/local/bin/terraform output cname > ./cname"
+                }
+                script {
+                    myVar = readFile('./cname').trim()
                 }
             }
         }
@@ -119,7 +123,6 @@ pipeline {
             steps{
                 dir('terraform') {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
-                    sh "/usr/local/bin/terraform output cname"
                 }
             }
         }
@@ -132,7 +135,7 @@ pipeline {
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
                     "color" : "good",
-                    "text": "${CNAME}",
+                    "text": "${myVar}",
                     "mrkdwn_in": ["text"]
                 }
             ]}' https://hooks.slack.com/services/${slackHook}
