@@ -23,5 +23,13 @@ pipeline {
                 // deleteDir()
             }
         }
+        stage ('Docker Image Build') {
+            steps {
+                dockerfile {
+                    filename 'Dockerfile'
+                    label 'latest'
+                }
+            }
+        }
     }
 }
