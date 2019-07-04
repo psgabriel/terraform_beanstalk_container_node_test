@@ -30,10 +30,9 @@ pipeline {
             }
         }
         stage('Building image') {
-            steps {
-                cd node_app_docker
+            steps{
                 script {
-                    docker.build("node:latest", "Dockerfile")
+                    docker.build registry + "latest"
                 }
             }
         }
