@@ -128,7 +128,7 @@ pipeline {
                 "attachments": [{
                     "title": "JOB '${JOB_NAME}' IS OK",
                     "color" : "good",
-                    "text": '$(cat /var/lib/jenkins/workspace/pg/terraform/cname)',
+                    "text": "current stg address: '$(cat /var/lib/jenkins/workspace/pg/terraform/cname)'",
                     "mrkdwn_in": ["text"]
                 }
             ]}' https://hooks.slack.com/services/${slackHook}
