@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        booleanParam(name: 'reDockerImage', defaultValue: true
+        booleanParam(name: 'reDockerImage', defaultValue: true,
             description: 'Force pipeline to always build a new Docker image')
         booleanParam(name: 'awsBuild', defaultValue: true, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
