@@ -108,11 +108,7 @@ pipeline {
                 expression { params.slackNotification == true }
             }
             steps {
-                dir('terraform') {
-                    environment {
-                        CNAME = sh(script: '/usr/local/bin/terraform output cname', , returnStdout: true).trim()
-                    }
-                }
+                sh "echo ${myVAR}"
             }
            
         }
