@@ -103,13 +103,16 @@ pipeline {
             when {
                 expression { params.slackNotification == true }
             }
-            steps{
-                dir('terraform') {
-                    script {
-                    CNAME = sh(script: '/usr/local/bin/terraform output cname')
-                    }
-                }
-            }
+            environment {
+               CNAME = sh(script: '/usr/local/bin/terraform output cname', , returnStdout: true).trim()
+           }
+            // steps{
+            //     dir('terraform') {
+            //         script {
+            //         CNAME = sh(script: '/usr/local/bin/terraform output cname')
+            //         }
+            //     }
+            // }
         }
         stage ('AWS Destroy') {
             when {
