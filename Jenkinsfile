@@ -51,7 +51,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh '''
+                    sh '''`
                     chmod -R 777 *
                     /usr/local/bin/terraform init
                     '''
@@ -64,7 +64,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh "terraform plan -out node_stg.plan"
+                    sh "/usr/local/bin/terraform plan -out node_stg.plan"
                 }
             }
         }
