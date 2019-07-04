@@ -14,7 +14,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   }
 }
 # Benstalk Env
-resource "aws_elastic_beanstalk_environment" "${var.application_name}" {
+resource "aws_elastic_beanstalk_environment" default {
   name                = "${var.application_env}"
   application         = "${aws_elastic_beanstalk_application.default.name}"
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.12.14 running Docker 18.06.1-ce"
@@ -67,7 +67,6 @@ resource "aws_elastic_beanstalk_environment" "${var.application_name}" {
     value     = "true"
   }
 }
-# output "cname" {
-#   where = "${var.application_name}"
-#   value = "${aws_elastic_beanstalk_environment.where.cname}"
-# }
+output "cname" {
+  value = "${aws_elastic_beanstalk_environment.default.cname}"
+}
