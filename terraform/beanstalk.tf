@@ -68,5 +68,6 @@ resource "aws_elastic_beanstalk_environment" "${var.application_name}" {
   }
 }
 output "cname" {
-  value = "${aws_elastic_beanstalk_environment.default.cname}"
+  where = ${var.application_name}
+  value = "${aws_elastic_beanstalk_environment.where.cname}"
 }
