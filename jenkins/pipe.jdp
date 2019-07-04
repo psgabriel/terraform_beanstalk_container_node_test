@@ -24,15 +24,15 @@ pipeline {
                 cd node_app_docker
                 rm -rf nodejs.org
                 git clone https://github.com/nodejs/nodejs.org.git
-                ls
                 '''
                 // deleteDir()
             }
         }
         stage('Building image') {
             steps{
+                sh 'cd node_app_docker'
                 script {
-                    docker.build registry + "latest"
+                    docker.build registry + ":latest"
                 }
             }
         }
