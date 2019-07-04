@@ -47,10 +47,6 @@ pipeline {
         // }
         stage ('Docker Build') {
             steps {
-                // prepare docker build context
-                sh "cp target/project.war ./tmp-docker-build-context"
-
-                // Build and push image with Jenkins' docker-plugin
                 script {
                     withDockerServer([uri: "tcp://127.0.0.1:2375"]) {
                         withDockerRegistry([credentialsId: 'dockerhub', url: "https://hub.docker.com"]) {
