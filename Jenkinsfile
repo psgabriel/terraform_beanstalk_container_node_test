@@ -4,9 +4,10 @@ pipeline {
             label 'master'
         }
     }
-
+ 
     environment {
         nodeAPPrepo="https://github.com/nodejs/nodejs.org.git"
+        slackHook = credentials('SLACK_ENDPOINT')
     }
     parameters {
         booleanParam(name: 'refreshApp', defaultValue: true,
@@ -16,7 +17,9 @@ pipeline {
         booleanParam(name: 'awsBuild', defaultValue: true, 
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
         booleanParam(name: 'awsDestroy', defaultValue: true, 
-            description: 'All Beanstalk resources will be destroyed ')    
+            description: 'All Beanstalk resources will be destroyed')
+        booleanParam(name: 'slackNotification', defaultValue: true, 
+            description: 'Send a message to Slack General chanell ')
         choice(
             name: 'deploy_color',
             choices: 'blue\ngreen',
@@ -103,6 +106,10 @@ pipeline {
             steps{
                 dir('terraform') {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
+                    sh "/usr/local/bin/terraform output cname"
+                }
+                environment {
+                    CNAME = "/usr/local/bin/terraform output cname"
                 }
             }
         }
@@ -110,6 +117,9 @@ pipeline {
     }
     post {
         success {
+            when {
+                expression { params.slackNotification == true }
+            }
             echo "success"
             sh'''
             curl --connect-timeout 10 -X POST --data-urlencode 'payload=
@@ -120,10 +130,13 @@ pipeline {
                             "text": "url do site ....",
                             "mrkdwn_in": ["text"]
                             }
-                        ]}' https://hooks.slack.com/services/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
+                        ]}' https://hooks.slack.com/services/${slackHook}
                        '''
         }
         failure {
+            when {
+                expression { params.slackNotification == true }
+            }
             echo "failed"
             sh'''
             curl --connect-timeout 10 -X POST --data-urlencode 'payload=
@@ -134,7 +147,7 @@ pipeline {
                             "text": "Something is wrong. Check Jenkins Log",
                             "mrkdwn_in": ["text"]
                             }
-                        ]}' https://hooks.slack.com/services/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
+                        ]}' https://hooks.slack.com/services/${slackHook}
                        '''
         }
     }
