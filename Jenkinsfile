@@ -122,16 +122,15 @@ pipeline {
             }
             echo "success"
             sh'''
-            curl --connect-timeout 10 -X POST --data-urlencode 'payload=
-                        {
-                        "attachments": [{
-                            "title": "JOB '${JOB_NAME}' IS OK",
-                            "color" : "good",
-                            "text": "url do site ....",
-                            "mrkdwn_in": ["text"]
-                            }
-                        ]}' https://hooks.slack.com/services/${slackHook}
-                       '''
+            curl --connect-timeout 10 -X POST --data-urlencode 'payload={
+                "attachments": [{
+                    "title": "JOB '${JOB_NAME}' IS OK",
+                    "color" : "good",
+                    "text": "url do site ....",
+                    "mrkdwn_in": ["text"]
+                }
+            ]}' https://hooks.slack.com/services/${slackHook}
+            '''
         }
         failure {
             when {
@@ -139,16 +138,15 @@ pipeline {
             }
             echo "failed"
             sh'''
-            curl --connect-timeout 10 -X POST --data-urlencode 'payload=
-                        {
-                        "attachments": [{
-                            "title": "JOB '${JOB_NAME}' IS FAIL",
-                            "color" : "danger",
-                            "text": "Something is wrong. Check Jenkins Log",
-                            "mrkdwn_in": ["text"]
-                            }
-                        ]}' https://hooks.slack.com/services/${slackHook}
-                       '''
+            curl --connect-timeout 10 -X POST --data-urlencode 'payload={
+                "attachments": [{
+                    "title": "JOB '${JOB_NAME}' IS FAIL",
+                    "color" : "danger",
+                    "text": "Something is wrong. Check Jenkins Log",
+                    "mrkdwn_in": ["text"]
+                }
+            ]}' https://hooks.slack.com/services/${slackHook}
+            '''
         }
     }
 
