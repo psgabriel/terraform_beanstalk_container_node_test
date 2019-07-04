@@ -82,7 +82,7 @@ pipeline {
             }
             steps{
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform apply node_stg_${deploy_color}"
+                    sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                 }
             }
         }
