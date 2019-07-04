@@ -97,17 +97,18 @@ pipeline {
                 dir('terraform') {
                     sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
                     sh "/usr/local/bin/terraform output cname > ./cname"
+                    sh'''
+                    curl --connect-timeout 10 -X POST --data-urlencode 'payload={
+                        "attachments": [{
+                            "title": "JOB '${JOB_NAME}' IS OK",
+                            "color" : "good",
+                            "text": "new stg address: '$(cat ${WORKSPACE}/terraform/cname)'",
+                            "mrkdwn_in": ["text"]
+                        }
+                    ]}' https://hooks.slack.com/services/${slackHook}
+                    '''
                 }
             }
-        }
-        stage ('test') {
-            when {
-                expression { params.slackNotification == true }
-            }
-            steps {
-                sh "echo pg"
-            }
-           
         }
         stage ('AWS Destroy') {
             when {
@@ -116,6 +117,17 @@ pipeline {
             steps{
                 dir('terraform') {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
+                    sh'''
+                    curl --connect-timeout 10 -X POST --data-urlencode 'payload={
+                        "attachments": [{
+                            "title": "JOB '${JOB_NAME}' IS OK",
+                            "color" : "good",
+                            "text": "stg '$(cat ${WORKSPACE}/terraform/cname)' was destroyed",
+                            "mrkdwn_in": ["text"]
+                        }
+                    ]}' https://hooks.slack.com/services/${slackHook}
+                    '''
+                    sh ""
                 }
             }
         }
@@ -123,16 +135,6 @@ pipeline {
     post {
         success {
             echo "success"
-            sh'''
-            curl --connect-timeout 10 -X POST --data-urlencode 'payload={
-                "attachments": [{
-                    "title": "JOB '${JOB_NAME}' IS OK",
-                    "color" : "good",
-                    "text": "current stg address: '$(cat /var/lib/jenkins/workspace/pg/terraform/cname)'",
-                    "mrkdwn_in": ["text"]
-                }
-            ]}' https://hooks.slack.com/services/${slackHook}
-            '''
         }
         failure {
             echo "failed"
