@@ -5,16 +5,16 @@ variable "env_version" {
     description = "external info"
 }
 variable "application_name" {
-    default     = "${var.env_name}"
+    value     = "${var.env_name}"
 }
 variable "application_environment" {
-    default     = "${var.env_name}"
+    value     = "${var.env_name}"
 }
 variable "application_description" {
     default     = "stg"
 }
 variable "application_version" {
-    default     = "${var.env_version}"
+    value     = "${var.env_version}"
 }
 variable "instance_type" {
     default     = "t2.micro"
