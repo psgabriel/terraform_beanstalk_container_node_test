@@ -100,9 +100,9 @@ pipeline {
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                         "attachments": [{
-                            "title": "JOB '${JOB_NAME}' IS OK",
+                            "title": "JOB '${JOB_NAME}' finished with sucess status",
                             "color" : "good",
-                            "text": "new stg address: '$(cat ${WORKSPACE}/terraform/cname)'",
+                            "text": "Deploy new STG ENV. Address: '$(cat ${WORKSPACE}/terraform/cname)'",
                             "mrkdwn_in": ["text"]
                         }
                     ]}' https://hooks.slack.com/services/${slackHook}
@@ -120,9 +120,9 @@ pipeline {
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                         "attachments": [{
-                            "title": "JOB '${JOB_NAME}' IS OK",
+                            "title": "Job '${JOB_NAME}' finished with sucess status",
                             "color" : "good",
-                            "text": "stg '$(cat ${WORKSPACE}/terraform/cname)' was destroyed",
+                            "text": "Destroy STG ENV '$(cat ${WORKSPACE}/terraform/cname)'",
                             "mrkdwn_in": ["text"]
                         }
                     ]}' https://hooks.slack.com/services/${slackHook}
