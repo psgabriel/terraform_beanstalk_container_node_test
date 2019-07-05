@@ -1,6 +1,7 @@
 # Beanstalk App
 resource "aws_elastic_beanstalk_application" "default" {
-  name        = "${var.application_name}"
+  # name        = "${var.application_name}"
+  name        = "beanstalk_node_stg_app"
   description = "${var.application_description}"
 }
 resource "aws_elastic_beanstalk_application_version" "default" {
