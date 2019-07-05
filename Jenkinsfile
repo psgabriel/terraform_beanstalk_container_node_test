@@ -20,11 +20,8 @@ pipeline {
             description: 'All Beanstalk resources will be destroyed')
         booleanParam(name: 'slackNotification', defaultValue: true, 
             description: 'Send a message to Slack General chanell ')
-        choice(
-            name: 'deploy_color',
-            choices: 'blue\ngreen',
-            description: 'deploy alternative'
-        )
+        choice(name: 'deploy_color', choices: 'blue\ngreen', description: 'deploy alternative')
+        string(defaultValue: '1.0.0', description: 'environment version', name: 'env_version')
     }
 
     options {
@@ -94,7 +91,7 @@ pipeline {
             }
             steps {
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform apply node_stg_${deploy_color}.plan"
+                    sh "/usr/local/bin/terraform apply terraform apply -var 'env_name=${deploy_color}' -var 'env_version=${env_version}' node_stg_${deploy_color}.plan"
                     sh "/usr/local/bin/terraform output cname > ./cname"
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
