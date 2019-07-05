@@ -1,6 +1,9 @@
 # Instances VPC
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
+    tag = {
+      Name = "VPC for ${var.application_name}"
+  }
 }
 
 # To access outside world
@@ -23,6 +26,6 @@ resource "aws_subnet" "default" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Subnet A"
+    Name = "Subnet for ${var.application_name}"
   }
 }
