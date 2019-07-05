@@ -81,7 +81,7 @@ pipeline {
             }
             steps {
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform plan -var 'env_name=${deployColor}' -var 'env_version=${envVersion}' -out node_stg_${deployColor}.plan"
+                    sh "/usr/local/bin/terraform plan -var 'application_name=${deployColor}' -var 'application_version=${envVersion}' -out node_stg_${deployColor}.plan"
                 }
             }
         }
@@ -91,7 +91,7 @@ pipeline {
             }
             steps {
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform apply terraform apply -var 'env_name=${deployColor}' -var 'env_version=${envVersion}' node_stg_${deployColor}.plan"
+                    sh "/usr/local/bin/terraform apply terraform apply -var 'application_name=${deployColor}' -var 'application_version=${envVersion}' node_stg_${deployColor}.plan"
                     sh "/usr/local/bin/terraform output cname > ./cname"
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
