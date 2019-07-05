@@ -1,8 +1,8 @@
 variable "application_name" {
-    default     = "blue"
+    default     = "node_stg_blue"
 }
 variable "application_description" {
-    default     = "stg"
+    default     = "node_stg_stg"
 }
 variable "application_version" {
     default     = "1.0.0"
