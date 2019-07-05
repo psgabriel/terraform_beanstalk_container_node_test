@@ -1,6 +1,6 @@
 #Container Confs
 resource "aws_s3_bucket" "default" {
-  bucket    = "node-stg"
+  bucket    = "${var.application_name}"
   acl       = "public-read"
 }
 resource "aws_s3_bucket_object" "default" {
