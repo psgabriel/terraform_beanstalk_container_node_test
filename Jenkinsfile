@@ -81,7 +81,7 @@ pipeline {
             }
             steps {
                 dir('terraform') {
-                    sh "/usr/local/bin/terraform plan -out node_stg_${deployColor}.plan"
+                    sh "/usr/local/bin/terraform plan -var 'env_name=${deployColor}' -var 'env_version=${envVersion}' -out node_stg_${deployColor}.plan"
                 }
             }
         }
