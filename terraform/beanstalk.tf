@@ -5,7 +5,7 @@ resource "aws_elastic_beanstalk_application" "default" {
 }
 resource "aws_elastic_beanstalk_application_version" "default" {
   name        = "${var.application_name}-${var.application_version}"
-  application = "${aws_elastic_beanstalk_application}"
+  application = "${aws_elastic_beanstalk_application.default}"
   bucket      = "${aws_s3_bucket.default.id}"
   key         = "${aws_s3_bucket_object.default.id}"
 
