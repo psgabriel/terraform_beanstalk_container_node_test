@@ -1,14 +1,20 @@
+variable "env_name" {
+    description = "external info"
+}
+variable "env_version" {
+    description = "external info"
+}
 variable "application_name" {
-    default     = "env-stg-blue"
+    default     = "${var.env_name}"
+}
+variable "application_environment" {
+    default     = "${var.env_name}"
 }
 variable "application_description" {
     default     = "stg"
 }
-variable "application_env" {
-    default     = "env-stg-blue"
-}
 variable "application_version" {
-    default     = "1.0.0"
+    default     = "${var.env_version}"
 }
 variable "instance_type" {
     default     = "t2.micro"

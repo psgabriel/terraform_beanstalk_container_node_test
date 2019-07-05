@@ -53,7 +53,6 @@ pipeline {
             steps {
                 sh '''
                 docker build -t node_stg:latest .
-                docker images
                 '''
             }
         }
