@@ -120,7 +120,7 @@ pipeline {
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                         "attachments": [{
-                            "title": "Job '${JOB_NAME}' finished with sucess status",
+                            "title": "Job '${JOB_NAME}' has finished with sucess status",
                             "color" : "good",
                             "text": "Destroy STG ENV '$(cat ${WORKSPACE}/terraform/cname)'",
                             "mrkdwn_in": ["text"]
@@ -141,7 +141,7 @@ pipeline {
             sh'''
             curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                 "attachments": [{
-                    "title": "JOB '${JOB_NAME}' IS FAIL",
+                    "title": "Job '${JOB_NAME}' has finished with fail status",
                     "color" : "danger",
                     "text": "Something is wrong. Check Jenkins Log",
                     "mrkdwn_in": ["text"]
