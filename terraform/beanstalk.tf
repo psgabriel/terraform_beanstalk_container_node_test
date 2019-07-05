@@ -1,11 +1,11 @@
 # Beanstalk App
 resource "aws_elastic_beanstalk_application" "default" {
-  name        = "default"
+  name        = "${var.application_name}"
   description = "${var.application_description}"
 }
 resource "aws_elastic_beanstalk_application_version" "default" {
   name        = "${var.application_name}-${var.application_version}"
-  application = "default"
+  application = "${aws_elastic_beanstalk_application}"
   bucket      = "${aws_s3_bucket.default.id}"
   key         = "${aws_s3_bucket_object.default.id}"
 
@@ -15,7 +15,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
 }
 # Benstalk Env
 resource "aws_elastic_beanstalk_environment" "default" {
-  name                = "default"
+  name                = "${var.application_name}"
   application         = "${aws_elastic_beanstalk_application.default.name}"
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.12.14 running Docker 18.06.1-ce"
   version_label       = "${aws_elastic_beanstalk_application_version.default.name}"
