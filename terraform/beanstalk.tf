@@ -5,7 +5,8 @@ resource "aws_elastic_beanstalk_application" "default" {
   description = "${var.application_description}"
 }
 resource "aws_elastic_beanstalk_application_version" "default" {
-  name        = "${var.application_name}-${var.application_version}"
+  #name        = "${var.application_name}-${var.application_version}"
+  name        = "benstalk_node_stg_app_docker_version"
   application = "${var.application_name}"
   bucket      = "${aws_s3_bucket.default.id}"
   key         = "${aws_s3_bucket_object.default.id}"
