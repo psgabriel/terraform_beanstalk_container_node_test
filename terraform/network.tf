@@ -1,7 +1,7 @@
 # Instances VPC
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
-    tag = {
+    tags = {
       Name = "VPC for ${var.application_name}"
   }
 }
