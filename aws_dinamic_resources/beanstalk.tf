@@ -48,7 +48,7 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:autoscaling:asg"
     name      = "MaxSize"
-    value     = "2"
+    value     = "4"
   }
   # Beanstalk Load Balancer Confs
   setting {

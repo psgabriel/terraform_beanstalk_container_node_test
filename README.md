@@ -42,6 +42,14 @@ https://github.com/nodejs/nodejs.org.git
 | AWS static resources    | VPC, IAM                | Security Group, Subnet, Internet Gateway, Route |
 | AWS dinamic resources   | Beanstalk, S3           | Autoscaling and Loadbalancer Policies           |
 
+### Beanstalk Environment:
+- Instance Type: t2.micro
+- AWS Region: us-east-1
+- Type: Loadbalanced
+- Autoscalling Instances: min 2
+- Deployment Policy: Health, Immutable or Rolling
+
+
 # Macro steps for manual process:
 Without automation or Continous Integration
 
@@ -98,7 +106,15 @@ Jenkins stages:
 
 ## 4) Beanstalk Up
 - The Beanstalk Environment URL will be sent to Slack channel.
+```
+CNAME: node-stg-blue.2rp8bzu49r.us-east-1.elasticbeanstalk.com
+```
+![Image of Slack Notification](images/slack_notification.png)
 
 ## 5) AWS Beanstalk Console
-node-stg-blue.2rp8bzu49r.us-east-1.elasticbeanstalk.com
+![Image of Beanstalk App](images/beanstalk_app1.png)
+![Image of Beanstalk Env](images/beanstalk_env.png)
+
+## 6) Full deploy and Node APP accessible by internet browser
+![Image of Beanstalk App](images/node_up.png)
 
