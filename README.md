@@ -12,9 +12,10 @@ Terraform and Jenkins scripts to setup AWS Elastic Beanstalk with dockerized loa
 ## Project repository
 https://github.com/psgabriel/terraform_beanstalk_container_node_test
 
-Node APP Sample: https://github.com/nodejs/nodejs.org.git
+### Node APP Sample
+https://github.com/nodejs/nodejs.org.git
 
-
+\
 :exclamation: General requirements:
 - Host with Linux Operational System;
 - Internet Access;
