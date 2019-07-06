@@ -36,6 +36,8 @@ https://github.com/nodejs/nodejs.org.git
 - AWS Region: us-east-1
 - Type: Loadbalanced
 - Autoscalling Instances: min 2
+- Autoscalling Instances: max 4
+- Autoscalling Threshold: NetworkIn > 18000000 bytes / 5min
 - Solution Stack: 64bit Amazon Linux 2018.03 v2.12.14 running Docker 18.06.1-ce
 - Deployment Policies: Health, Immutable or Rolling
 
