@@ -11,11 +11,11 @@ pipeline {
     }
     parameters {
         booleanParam(name: 'slackNotification', defaultValue: true, 
-            description: 'Send a message to Slack General chanell ')
-        choice(name: 'deployColor', choices: 'blue\ngreen', description: 'deploy alternative')
-        string(defaultValue: '1.0.0', description: 'environment version', name: 'envVersion')
+            description: 'Send a message to Slack General channel ')
+        choice(name: 'deployColor', choices: 'blue\ngreen', description: 'Deploy alternative')
+        string(defaultValue: '1.0.0', description: 'Environment version', name: 'envVersion')
         booleanParam(name: 'refreshApp', defaultValue: false,
-            description: 'Take a new app from repository nodeAPPrepo')
+            description: 'Take a new app from nodeAPP repository')
         booleanParam(name: 'reDockerImage', defaultValue: false,
             description: 'Force pipeline to always build a new Docker image')
         booleanParam(name: 'awsBuild', defaultValue: false, 
