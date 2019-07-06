@@ -39,8 +39,8 @@ https://github.com/nodejs/nodejs.org.git
 |-------------------------|-------------------------|-------------------------------------------------|
 | Docker Image Build      | node_stg:latest         |                                                 |
 | Docker Image Publish    | psgabriel/node_stg      |                                                 |
-| AWS static resources    | S3, VPC, IAM  | Security Group, Subnet, Internet Gateway, Route |
-| AWS dinamic resources   | Beanstalk               | Autoscaling and Loadbalancer Policies           |
+| AWS static resources    | VPC, IAM                | Security Group, Subnet, Internet Gateway, Route |
+| AWS dinamic resources   | Beanstalk, S3           | Autoscaling and Loadbalancer Policies           |
 
 # Macro steps for manual process:
 Without automation or Continous Integration
@@ -49,7 +49,7 @@ Without automation or Continous Integration
 - Clone Node JS App Source from https://github.com/nodejs/nodejs.org.git
 - Use the Dockerfile from this project
 - Dockerfile Content:
-![Image of Dockerfile](images/docker_build.png)
+- ![Image of Dockerfile](images/docker_build.png)
 - Build a new Docker image
 
 ## 2) Publish the Docker image to a private or public repository:
