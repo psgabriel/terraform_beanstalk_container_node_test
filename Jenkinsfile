@@ -60,6 +60,7 @@ pipeline {
             steps {
                 sh '''
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+                docker tag node_stg:blue psgabriel/node_stg:${deployColor}
                 docker push psgabriel/node_stg:${deployColor}
                 '''
             }
