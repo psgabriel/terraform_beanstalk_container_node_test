@@ -2,7 +2,7 @@
 
 Terraform and Jenkins scripts to setup AWS Elastic Beanstalk with dockerized load-balanced NodeJS app.
 
-# What these scripts does?
+# What these scripts do?
 - Build a Docker image with Node APP;
 - Publish a Docker image on Docker Registry;
 - Create a Clound Computing environment on Amazon Web Server;
@@ -12,9 +12,7 @@ Terraform and Jenkins scripts to setup AWS Elastic Beanstalk with dockerized loa
 ## Project repository
 https://github.com/psgabriel/terraform_beanstalk_container_node_test
 
-## Node APP Sample
-Just to exemplify a Node JS build
-https://github.com/nodejs/nodejs.org.git
+Node APP Sample: https://github.com/nodejs/nodejs.org.git
 
 
 ## References
@@ -31,7 +29,7 @@ https://github.com/nodejs/nodejs.org.git
 - Host with Linux Operational System;
 - Internet Access;
 - Wget, Git, Docker, Docker-compose, Terraform and Jenkins installed;
-- Intermediate knowledge on System Sntegrations, Cloud Computing, Application Deployment and general ideia about Continous Integration.
+- Intermediate knowledge on System Integrations, Cloud Computing, Application Deployment and basic understanding about Continous Integration.
 
 ## Proposed scenario
 
@@ -61,21 +59,19 @@ Without automation or Continous Integration
 - Build a new Docker image
 
 ## 2) Publish the Docker image to a private or public repository:
-In this example, I used Docker Hub, but you can choose AWS or Azure Registry, Artifactory, Nexus, etc.
+In this example it was used the Docker Hub repository, but you can choose AWS or Azure Registry, Artifactory, Nexus, etc.
 - Dockerized Node App on Docker Hub:
 ![Image of Dockerhub](images/docker_hub.png)
 
 ## 3) Deploy of AWS Static Resources:
 - Initialize, Plan and Apply the main resources which will be used over APP life circle.
-![Image of Terraform sta plan1](images/terraform_static_plan1.png)
-![Image of Terraform sta plan2](images/terraform_static_plan2.png)
 ![Image of Terraform sta apply](images/terraform_static_apply.png)
 
 ## 4) Deploy of AWS Dinamic Resources:
 - In this step, the Terraform will create a new Beanstalk environment to run dockerized Node APP.
 ![Image of Terraform din apply](images/terraform_dinamic_apply.png)
 ```
-Note the CNAME with the Web Server Beanstalk URL from Node APP environment
+Note that the CNAME is set with the Web Server Beanstalk URL from Node APP environment
 ```
 
 # Continous Integration with Jenkins:
@@ -84,7 +80,7 @@ Automatic process to build, publish and deploy AWS resources with Jenkins.
 ![Image of Jenkins Pipe](images/pipeline.png)
 
 ## 1) Create a new pipeline project
-- From a previous Jenkins instalation, create a new pipeline item, based on https://github.com/psgabriel/terraform_beanstalk_container_node_test repository. Set the Jenkinsfile on Script Path field.
+- From a previous Jenkins instalation, create a new pipeline item based on https://github.com/psgabriel/terraform_beanstalk_container_node_test repository. Set the Jenkinsfile on Script Path field.
 ![Image of Jenkins SCM](images/jenkins_pipeline_scm.png)
 
 ## 2) Run the job
@@ -102,7 +98,7 @@ Jenkins stages:
 - Terraform Plan - Prepare detailed AWS information about Beanstalk
 - AWS Resource buil - Beanstalk Contruction
 - AWS Destroy - Beanstalk delete, if necessary
-- Post Actions - Slack notification. Successed or failed jobs
+- Post Actions - Slack notification for Successed or Failed jobs
 
 ## 4) Beanstalk Up
 - The Beanstalk Environment URL will be sent to Slack channel.
