@@ -10,6 +10,10 @@ pipeline {
         slackHook = credentials('SLACK_ENDPOINT')
     }
     parameters {
+        booleanParam(name: 'slackNotification', defaultValue: true, 
+            description: 'Send a message to Slack General chanell ')
+        choice(name: 'deployColor', choices: 'blue\ngreen', description: 'deploy alternative')
+        string(defaultValue: '1.0.0', description: 'environment version', name: 'envVersion')
         booleanParam(name: 'refreshApp', defaultValue: false,
             description: 'Take a new app from repository nodeAPPrepo')
         booleanParam(name: 'reDockerImage', defaultValue: false,
@@ -18,10 +22,6 @@ pipeline {
             description: 'AWS resource up (if false, just docker image will be deployed on registry)')
         booleanParam(name: 'awsDestroy', defaultValue: false, 
             description: 'All Beanstalk resources will be destroyed')
-        booleanParam(name: 'slackNotification', defaultValue: true, 
-            description: 'Send a message to Slack General chanell ')
-        choice(name: 'deployColor', choices: 'blue\ngreen', description: 'deploy alternative')
-        string(defaultValue: '1.0.0', description: 'environment version', name: 'envVersion')
     }
 
     options {
@@ -49,11 +49,10 @@ pipeline {
             }
             steps {
                 sh '''
-                docker build -t node_stg:latest .
+                docker build -t node_stg:${deployColor} .
                 '''
             }
         }
-
         stage ('Docker Hub Publish') {
             when {
                 expression { params.reDockerImage == true }
@@ -61,7 +60,7 @@ pipeline {
             steps {
                 sh '''
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
-                docker push psgabriel/node:latest
+                docker push psgabriel/node:${deployColor}
                 '''
             }
         }
@@ -70,7 +69,7 @@ pipeline {
                 expression { params.awsBuild == true }
             }
             steps {
-                dir('terraform') {
+                dir('aws_dinamic_resources') {
                     sh "/usr/local/bin/terraform init"
                 }
             }
@@ -80,7 +79,7 @@ pipeline {
                 expression { params.awsBuild == true }
             }
             steps {
-                dir('terraform') {
+                dir('aws_dinamic_resources') {
                     sh "/usr/local/bin/terraform plan -var 'application_name=node-stg-${deployColor}' -var 'application_version=${envVersion}' -out node-stg-${deployColor}.plan"
                 }
             }
@@ -90,7 +89,7 @@ pipeline {
                 expression { params.awsBuild == true }
             }
             steps {
-                dir('terraform') {
+                dir('aws_dinamic_resources') {
                     sh "/usr/local/bin/terraform apply node-stg-${deployColor}.plan"
                     sh "/usr/local/bin/terraform output cname > ./cname"
                     sh'''
@@ -111,7 +110,7 @@ pipeline {
                 expression { params.awsDestroy == true }
             }
             steps{
-                dir('terraform') {
+                dir('aws_dinamic_resources') {
                     sh "/usr/local/bin/terraform destroy -auto-approve"
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
@@ -146,5 +145,4 @@ pipeline {
             '''
         }
     }
-
 }
