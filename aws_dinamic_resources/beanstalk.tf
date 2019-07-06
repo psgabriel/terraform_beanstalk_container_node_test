@@ -25,19 +25,19 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = "vpc-037db2482fad83358"
+    value     = "${var.vpc_id}"
   }
 
   # ELB and Instances subnet
   setting {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
-    value     = "subnet-07603443cf6865827"
+    value     = "${var.subnet_ec2_elb}"
   }
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = "subnet-07603443cf6865827"
+    value     = "${var.subnet_ec2_elb}"
   }
   # Autoscaling
   setting {
@@ -77,11 +77,6 @@ resource "aws_elastic_beanstalk_environment" "default" {
     name      = "DeploymentPolicy"
     value     = "${var.bean_rolling_update_type == "Immutable" ? "Immutable" : "Rolling"}"
   }
-  # setting {
-  #   namespace = "aws:elasticbeanstalk:application:default"
-  #   name      = "url"
-  #   value     = "${aws_elastic_beanstalk_environment.default.cname}"
-  # }
 }
 output "cname" {
   value = "${aws_elastic_beanstalk_environment.default.cname}"
