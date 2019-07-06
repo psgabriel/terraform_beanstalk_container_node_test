@@ -49,7 +49,7 @@ pipeline {
             }
             steps {
                 sh '''
-                docker build -t node_stg:${deployColor} .
+                docker build -t node_stg:latest .
                 '''
             }
         }
@@ -60,8 +60,8 @@ pipeline {
             steps {
                 sh '''
                 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
-                docker tag node_stg:blue psgabriel/node_stg:${deployColor}
-                docker push psgabriel/node_stg:${deployColor}
+                docker tag node_stg:blue psgabriel/node_stg:latest
+                docker push psgabriel/node_stg:latest
                 '''
             }
         }
@@ -96,7 +96,7 @@ pipeline {
                     sh'''
                     curl --connect-timeout 10 -X POST --data-urlencode 'payload={
                         "attachments": [{
-                            "title": "JOB '${JOB_NAME}' finished with sucess status",
+                            "title": "JOB '${JOB_NAME}' finished with success status",
                             "color" : "good",
                             "text": "Deploy new STG ENV. Address: '$(cat ${WORKSPACE}/terraform/cname)'",
                             "mrkdwn_in": ["text"]

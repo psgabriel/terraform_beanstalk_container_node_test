@@ -39,7 +39,7 @@ https://github.com/nodejs/nodejs.org.git
 |-------------------------|-------------------------|-------------------------------------------------|
 | Docker Image Build      | node_stg:latest         |                                                 |
 | Docker Image Publish    | psgabriel/node_stg      |                                                 |
-| AWS static resources    | S3, Route 53, VPC, IAM  | Security Group, Subnet, Internet Gateway, Route |
+| AWS static resources    | S3, VPC, IAM  | Security Group, Subnet, Internet Gateway, Route |
 | AWS dinamic resources   | Beanstalk               | Autoscaling and Loadbalancer Policies           |
 
 # Macro steps for manual process:
