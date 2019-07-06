@@ -98,7 +98,7 @@ pipeline {
                         "attachments": [{
                             "title": "JOB '${JOB_NAME}' finished with success status",
                             "color" : "good",
-                            "text": "Deploy new STG ENV. Address: '$(cat ${WORKSPACE}/terraform/cname)'",
+                            "text": "Deploy new STG ENV. Address: '$(cat ${WORKSPACE}/aws_dinamic_resources/cname)'",
                             "mrkdwn_in": ["text"]
                         }
                     ]}' https://hooks.slack.com/services/${slackHook}
@@ -118,7 +118,7 @@ pipeline {
                         "attachments": [{
                             "title": "Job '${JOB_NAME}' has finished with sucess status",
                             "color" : "good",
-                            "text": "Destroy STG ENV '$(cat ${WORKSPACE}/terraform/cname)'",
+                            "text": "Destroy STG ENV '$(cat ${WORKSPACE}/aws_dinamic_resources/cname)'",
                             "mrkdwn_in": ["text"]
                         }
                     ]}' https://hooks.slack.com/services/${slackHook}

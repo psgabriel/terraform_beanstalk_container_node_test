@@ -81,7 +81,24 @@ Automatic process to build, publish and deploy AWS resources with Jenkins.
 
 ## 2) Run the job
 - Some options to customize the jorney
-![Image of Jenkins Run1](images/pipeline_run1.png)
+![Image of Jenkins Run1](images/jenkins_pipeline_run1.png)
 
+## 3) Check job status
+![Image of Jenkins Result](images/jenkins_pipeline_result1.png)
+Jenkins stages:
+- Checkout SCM - Jenkinsfile read
+- Get App - Get NodeAPP Source
+- Docker Image Build - Prepare dockerized image
+- Docker Hub Publish - Upload Docker image to Dockerhub
+- Terraform Init - Terraform initilization
+- Terraform Plan - Prepare detailed AWS information about Beanstalk
+- AWS Resource buil - Beanstalk Contruction
+- AWS Destroy - Beanstalk delete, if necessary
+- Post Actions - Slack notification. Successed or failed jobs
 
+## 4) Beanstalk Up
+- The Beanstalk Environment URL will be sent to Slack channel.
+
+## 5) AWS Beanstalk Console
+node-stg-blue.2rp8bzu49r.us-east-1.elasticbeanstalk.com
 
