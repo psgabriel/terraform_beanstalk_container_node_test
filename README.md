@@ -15,16 +15,6 @@ https://github.com/psgabriel/terraform_beanstalk_container_node_test
 Node APP Sample: https://github.com/nodejs/nodejs.org.git
 
 
-## References
-- Linux SO - https://www.linux.org/
-- Github - http://github.com
-- NodeJS - https://nodejs.org/en/
-- Docker - https://www.docker.com/
-- AWS - https://aws.amazon.com
-- AWS CLI - https://aws.amazon.com/cli/
-- Terraform - https://www.terraform.io/
-- Jenkins - https://jenkins.io/
-
 :exclamation: General requirements:
 - Host with Linux Operational System;
 - Internet Access;
@@ -114,3 +104,12 @@ CNAME: node-stg-blue.6xrmtp9nxv.us-east-1.elasticbeanstalk.com
 ## 6) Full deploy and Node APP accessible by internet browser
 - ![Image of Beanstalk App](images/node_up.png)
 
+## References
+- Linux SO - https://www.linux.org/
+- Github - http://github.com
+- NodeJS - https://nodejs.org/en/
+- Docker - https://www.docker.com/
+- AWS - https://aws.amazon.com
+- AWS CLI - https://aws.amazon.com/cli/
+- Terraform - https://www.terraform.io/
+- Jenkins - https://jenkins.io/
