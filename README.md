@@ -25,7 +25,7 @@ Node APP Sample: https://github.com/nodejs/nodejs.org.git
 - Terraform - https://www.terraform.io/
 - Jenkins - https://jenkins.io/
 
-:exclamation: General needs:
+:exclamation: General requirements:
 - Host with Linux Operational System;
 - Internet Access;
 - Wget, Git, Docker, Docker-compose, Terraform and Jenkins installed;
