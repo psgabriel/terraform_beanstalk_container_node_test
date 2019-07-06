@@ -22,6 +22,24 @@ variable "subnet_ec2_elb" {
 variable "bean_autoscaling_min" {
   default     = "2"
 }
+variable "bean_autoscaling_max" {
+  default     = "4"
+}
+variable "bean_autoscaling_measurename" {
+  default     = "Bytes"
+}
+variable "bean_autoscaling_trigger" {
+  default     = "NetworkIn"
+}
+variable "bean_autoscaling_threshold_up" {
+  default     = "18000000"
+}
+variable "bean_autoscaling_threshold_down" {
+  default     = "6000000"
+}
+variable "bean_autoscaling_threshold_period_in_minutes" {
+  default     = "5"
+}
 variable "bean_rolling_update_type" {
   default     = "Health"
   description = "Health, Immutable, Rolling"

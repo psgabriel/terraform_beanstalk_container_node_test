@@ -27,7 +27,6 @@ resource "aws_elastic_beanstalk_environment" "default" {
     name      = "VPCId"
     value     = "${var.vpc_id}"
   }
-
   # ELB and Instances subnet
   setting {
     namespace = "aws:ec2:vpc"
@@ -47,8 +46,38 @@ resource "aws_elastic_beanstalk_environment" "default" {
   }
   setting {
     namespace = "aws:autoscaling:asg"
-    name      = "MaxSize"
-    value     = "4"
+    name = "MinSize"
+    value = "${var.bean_autoscaling_min}"
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name = "MaxSize"
+    value = "${var.bean_autoscaling_max}"
+  }
+    setting {
+    name = "Unit"
+    namespace = "aws:autoscaling:trigger"
+    value = "${var.bean_autoscaling_measurename}"
+  }
+  setting {
+    name = "MeasureName"
+    namespace = "aws:autoscaling:trigger"
+    value = "${var.bean_autoscaling_trigger}"
+  }
+    setting {
+    name = "UpperThreshold"
+    namespace = "aws:autoscaling:trigger"
+    value = "${var.bean_autoscaling_threshold_up}"
+  }
+  setting {
+    name = "LowerThreshold"
+    namespace = "aws:autoscaling:trigger"
+    value = "${var.bean_autoscaling_threshold_down}"
+  }
+  setting {
+    name = "Period"
+    namespace = "aws:autoscaling:trigger"
+    value = "${var.bean_autoscaling_threshold_period_in_minutes}"
   }
   # Beanstalk Load Balancer Confs
   setting {
