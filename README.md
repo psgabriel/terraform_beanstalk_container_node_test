@@ -45,6 +45,7 @@ Node APP Sample: https://github.com/nodejs/nodejs.org.git
 - AWS Region: us-east-1
 - Type: Loadbalanced
 - Autoscalling Instances: min 2
+- Solution Stack: 64bit Amazon Linux 2018.03 v2.12.14 running Docker 18.06.1-ce
 - Deployment Policy: Health, Immutable or Rolling
 
 
