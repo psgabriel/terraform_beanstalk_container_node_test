@@ -79,7 +79,8 @@ Automatic process to build, publish and deploy AWS resources with Jenkins.
 - ![Image of Jenkins Run1](images/jenkins_pipeline_run1.png)
 
 ## 3) Check job status
-- ![Image of Jenkins Result](images/jenkins_pipeline_result1.png)
+![Image of Jenkins Result](images/jenkins_pipeline_result1.png)
+\
 Jenkins stages:
 - Checkout SCM - Jenkinsfile read
 - Get App - Get NodeAPP Source
