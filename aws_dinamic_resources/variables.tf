@@ -14,10 +14,10 @@ variable "aws_region_zone" {
     default     = "us-east-1b"
 }
 variable "vpc_id" {
-  default     = "vpc-09f54db1f45172cad"
+  default     = "vpc-0887e40f7bbe7c4cf"
 }
 variable "subnet_ec2_elb" {
-  default     = "subnet-07e2b167ded4f22c1"
+  default     = "subnet-096b12c445dc3eae0"
 }
 variable "bean_autoscaling_min" {
   default     = "2"
