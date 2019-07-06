@@ -102,7 +102,7 @@ Jenkins stages:
 ## 4) Beanstalk Up
 - The Beanstalk Environment URL will be sent to Slack channel.
 ```
-CNAME: node-stg-blue.2rp8bzu49r.us-east-1.elasticbeanstalk.com
+CNAME: node-stg-blue.6xrmtp9nxv.us-east-1.elasticbeanstalk.com
 ```
 - ![Image of Slack Notification](images/slack_notification.png)
 
