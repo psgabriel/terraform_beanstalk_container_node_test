@@ -79,4 +79,9 @@ Automatic process to build, publish and deploy AWS resources with Jenkins.
 - From a previous Jenkins instalation, create a new pipeline item, based on https://github.com/psgabriel/terraform_beanstalk_container_node_test repository. Set the Jenkinsfile on Script Path field.
 ![Image of Jenkins SCM](images/jenkins_pipeline_scm.png)
 
-## 2) 
+## 2) Run the job
+- Some options to customize the jorney
+![Image of Jenkins Run1](images/pipeline_run1.png)
+
+
+
