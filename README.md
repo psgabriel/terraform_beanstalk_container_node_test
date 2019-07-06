@@ -45,15 +45,38 @@ https://github.com/nodejs/nodejs.org.git
 # Macro steps for manual process:
 Without automation or Continous Integration
 
-## 1 Build a new Docker image:
+## 1) Build a new Docker image:
 - Clone Node JS App Source from https://github.com/nodejs/nodejs.org.git
 - Use the Dockerfile from this project
 - Dockerfile Content:
 ![Image of Dockerfile](images/docker_build.png)
 - Build a new Docker image
 
-## 2 Publish the Docker image to a private or public repository:
+## 2) Publish the Docker image to a private or public repository:
 In this example, I used Docker Hub, but you can choose AWS or Azure Registry, Artifactory, Nexus, etc.
 - Dockerized Node App on Docker Hub:
 ![Image of Dockerhub](images/docker_hub.png)
 
+## 3) Deploy of AWS Static Resources:
+- Initialize, Plan and Apply the main resources which will be used over APP life circle.
+![Image of Terraform sta plan1](images/terraform_static_plan1.png)
+![Image of Terraform sta plan2](images/terraform_static_plan2.png)
+![Image of Terraform sta apply](images/terraform_static_apply.png)
+
+## 4) Deploy of AWS Dinamic Resources:
+- In this step, the Terraform will create a new Beanstalk environment to run dockerized Node APP.
+![Image of Terraform din apply](images/terraform_dinamic_apply.png)
+```
+Note the CNAME with the Web Server Beanstalk URL from Node APP environment
+```
+
+# Continous Integration with Jenkins:
+Automatic process to build, publish and deploy AWS resources with Jenkins.
+
+![Image of Jenkins Pipe](images/pipeline.png)
+
+## 1) Create a new pipeline project
+- From a previous Jenkins instalation, create a new pipeline item, based on https://github.com/psgabriel/terraform_beanstalk_container_node_test repository. Set the Jenkinsfile on Script Path field.
+![Image of Jenkins SCM](images/jenkins_pipeline_scm.png)
+
+## 2) 

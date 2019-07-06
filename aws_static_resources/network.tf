@@ -2,7 +2,7 @@
 resource "aws_vpc" "default" {
   cidr_block = "10.0.0.0/16"
     tags = {
-      Name = "VPC for Beanstalk Env"
+      Name = "VPC for node-staging"
   }
 }
 
@@ -26,6 +26,6 @@ resource "aws_subnet" "default" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "Subnet for Beanstalk Env"
+    Name = "Subnet for node-staging"
   }
 }

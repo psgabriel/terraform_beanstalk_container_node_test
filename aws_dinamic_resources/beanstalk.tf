@@ -6,8 +6,8 @@ resource "aws_elastic_beanstalk_application" "default" {
 resource "aws_elastic_beanstalk_application_version" "default" {
   name        = "${var.application_name}-${var.application_version}"
   application = "${aws_elastic_beanstalk_application.default.name}"
-  bucket      = "${aws_s3_bucket.default.id}"
-  key         = "${aws_s3_bucket_object.default.id}"
+  bucket      = "node-staging"
+  key         = "node-staging-dockerrun"
 
   lifecycle {
     create_before_destroy = true
@@ -25,19 +25,19 @@ resource "aws_elastic_beanstalk_environment" "default" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = "${aws_vpc.default.id}"
+    value     = "vpc-037db2482fad83358"
   }
 
   # ELB and Instances subnet
   setting {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
-    value     = "${aws_subnet.default.id}"
+    value     = "subnet-07603443cf6865827"
   }
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = "${aws_subnet.default.id}"
+    value     = "subnet-07603443cf6865827"
   }
   # Autoscaling
   setting {

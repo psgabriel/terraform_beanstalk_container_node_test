@@ -1,9 +1,9 @@
-resource "aws_security_group" "sg_app-staging" {
+resource "aws_security_group" "node-staging" {
     vpc_id = "${aws_vpc.default.id}"
-    name = "sg_app-staging"
+    name = "node-staging"
     description = "Staging App Security Group"
     tags = {
-        Name = "sg_app-staging"
+        Name = "node-staging"
     }
     egress {
         from_port = 0
